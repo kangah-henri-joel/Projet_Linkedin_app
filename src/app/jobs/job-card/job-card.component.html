@@ -1,0 +1,55 @@
+<div class="job-card" (click)="onJobClick()">
+  <div class="job-card-header">
+    <div class="company-logo">
+      <img [src]="job.logo || 'assets/images/publAmi3.jpg'" [alt]="job.company" 
+           onerror="this.src='assets/images/publAmi3.jpg'">
+    </div>
+    <div class="job-info">
+      <h6 class="job-title">{{ job.title }}</h6>
+      <p class="company-name" (click)="onCompanyClick($event)">{{ job.company }}</p>
+      <p class="job-location">
+        <i class="bi bi-geo-alt"></i> {{ job.location }}
+      </p>
+    </div>
+  </div>
+  
+  <div class="job-card-body">
+    <div class="job-meta">
+      <span class="badge bg-light text-dark">{{ getExperienceLabel(job.experience) }}</span>
+      <span class="badge bg-light text-dark">{{ getTypeLabel(job.type) }}</span>
+    </div>
+    
+    <div class="job-description">
+      <p>{{ job.description | slice:0:150 }}...</p>
+    </div>
+    
+    <div class="job-footer">
+      <div class="job-meta-info">
+        <span class="posted-date">
+          <i class="bi bi-clock"></i> {{ getPostedDateLabel(job.postedDate) }}
+        </span>
+        <span class="applicants" *ngIf="job.applicants">
+          <i class="bi bi-people"></i> {{ job.applicants }} candidats
+        </span>
+      </div>
+      
+      <div class="job-salary" *ngIf="job.salary">
+        <strong>{{ job.salary }}</strong>
+      </div>
+    </div>
+  </div>
+  
+  <div class="job-card-actions">
+    <button class="btn btn-outline-primary btn-sm" (click)="onApplyClick($event)" [disabled]="job.hasApplied">
+      <i class="bi" [class.bi-send]="!job.hasApplied" [class.bi-check-circle]="job.hasApplied"></i> 
+      {{ job.hasApplied ? 'Postulé' : 'Postuler' }}
+    </button>
+    <button class="btn btn-outline-secondary btn-sm" (click)="onSaveClick($event)" [disabled]="job.isSaved">
+      <i class="bi" [class.bi-bookmark]="!job.isSaved" [class.bi-bookmark-fill]="job.isSaved"></i> 
+      {{ job.isSaved ? 'Sauvegardé' : 'Sauvegarder' }}
+    </button>
+    <button class="btn btn-outline-secondary btn-sm" (click)="onShareClick($event)" title="Partager l'offre">
+      <i class="bi bi-share"></i>
+    </button>
+  </div>
+</div>

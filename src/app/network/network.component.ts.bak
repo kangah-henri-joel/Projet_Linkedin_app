@@ -1,0 +1,72 @@
+import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NetworkService, Profile, Invitation } from '../services/network.service';
+import { ProfileCardComponent } from './profile-card/profile-card.component';
+import { InvitationComponent } from './invitation/invitation.component';
+import { Observable, of } from 'rxjs';
+
+@Component({
+  selector: 'app-network',
+  standalone: true,
+  imports: [CommonModule, FormsModule, ProfileCardComponent, InvitationComponent],
+  templateUrl: './network.component.html',
+  styleUrls: ['./network.component.css']
+})
+export class NetworkComponent implements OnInit {
+  peopleProfiles$!: Observable<Profile[]>;
+  schoolProfiles$!: Observable<Profile[]>;
+  companyProfiles$!: Observable<Profile[]>;
+  invitations$!: Observable<Invitation[]>;
+  
+  searchQuery = '';
+  activeTab = 'people';
+
+  constructor(private networkService: NetworkService) {}
+
+  ngOnInit(): void {
+    this.loadProfiles();
+  }
+
+  loadProfiles(): void {
+    this.peopleProfiles$ = this.networkService.getProfilesByCategory('people');
+    this.schoolProfiles$ = this.networkService.getProfilesByCategory('school');
+    this.companyProfiles$ = this.networkService.getProfilesByCategory('company');
+    this.invitations$ = this.networkService.getInvitations();
+  }
+
+  onSearch(): void {
+    if (this.searchQuery.trim()) {
+      const allProfiles$ = this.networkService.searchProfiles(this.searchQuery);
+      this.peopleProfiles$ = allProfiles$;
+      this.schoolProfiles$ = of([]);
+      this.companyProfiles$ = of([]);
+    } else {
+      this.loadProfiles();
+    }
+  }
+
+  setActiveTab(tab: string): void {
+    this.activeTab = tab;
+  }
+
+  onProfileConnected(profileId: string): void {
+    console.log('Connecté au profil:', profileId);
+  }
+
+  onInvitationAccepted(invitationId: string): void {
+    this.networkService.acceptInvitation(invitationId).subscribe({
+      next: () => {
+        this.loadProfiles();
+      }
+    });
+  }
+
+  onInvitationIgnored(invitationId: string): void {
+    this.networkService.ignoreInvitation(invitationId).subscribe({
+      next: () => {
+        this.loadProfiles();
+      }
+    });
+  }
+}

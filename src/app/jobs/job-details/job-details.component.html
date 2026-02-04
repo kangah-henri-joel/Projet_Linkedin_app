@@ -1,0 +1,119 @@
+<div class="job-details-card" *ngIf="job">
+  <!-- Header -->
+  <div class="job-details-header">
+    <div class="company-logo-large">
+      <img [src]="job.logo || 'assets/images/publAmi3.jpg'" [alt]="job.company"
+           onerror="this.src='assets/images/publAmi3.jpg'">
+    </div>
+    <div class="job-header-info">
+      <h4 class="job-title">{{ job.title }}</h4>
+      <h5 class="company-name">{{ job.company }}</h5>
+      <div class="job-meta-header">
+        <span class="location">
+          <i class="bi bi-geo-alt"></i> {{ job.location }}
+        </span>
+        <span class="type">
+          <i class="bi bi-briefcase"></i> {{ getTypeLabel(job.type) }}
+        </span>
+        <span class="experience">
+          <i class="bi bi-graph-up"></i> {{ getExperienceLabel(job.experience) }}
+        </span>
+      </div>
+      <div class="job-salary" *ngIf="job.salary">
+        <strong>{{ job.salary }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <!-- Action Buttons -->
+  <div class="job-actions">
+    <button class="btn btn-primary btn-lg" (click)="onApply()">
+      <i class="bi bi-send"></i> Postuler maintenant
+    </button>
+    <button class="btn btn-outline-secondary">
+      <i class="bi bi-bookmark"></i> Sauvegarder
+    </button>
+  </div>
+
+  <!-- Job Description -->
+  <div class="job-section">
+    <h6 class="section-title">Description du poste</h6>
+    <p class="job-description">{{ job.description }}</p>
+  </div>
+
+  <!-- Requirements -->
+  <div class="job-section">
+    <h6 class="section-title">Compétences requises</h6>
+    <ul class="requirements-list">
+      <li *ngFor="let requirement of job.requirements">
+        <i class="bi bi-check-circle-fill text-success"></i> {{ requirement }}
+      </li>
+    </ul>
+  </div>
+
+  <!-- Job Info -->
+  <div class="job-section">
+    <h6 class="section-title">Informations sur le poste</h6>
+    <div class="info-grid">
+      <div class="info-item">
+        <span class="info-label">Type de contrat:</span>
+        <span class="info-value">{{ getTypeLabel(job.type) }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Niveau d'expérience:</span>
+        <span class="info-value">{{ getExperienceLabel(job.experience) }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Lieu:</span>
+        <span class="info-value">{{ job.location }}</span>
+      </div>
+      <div class="info-item">
+        <span class="info-label">Publié:</span>
+        <span class="info-value">{{ getPostedDateLabel(job.postedDate) }}</span>
+      </div>
+      <div class="info-item" *ngIf="job.applicants">
+        <span class="info-label">Candidats:</span>
+        <span class="info-value">{{ job.applicants }} personnes</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Company Info -->
+  <div class="job-section">
+    <h6 class="section-title">À propos de {{ job.company }}</h6>
+    <div class="company-info">
+      <p>{{ job.company }} est une entreprise innovante qui recherche les meilleurs talents pour rejoindre son équipe.</p>
+      <div class="company-stats">
+        <div class="stat-item">
+          <strong>1k-5k</strong>
+          <span>Employés</span>
+        </div>
+        <div class="stat-item">
+          <strong>Technologie</strong>
+          <span>Secteur</span>
+        </div>
+        <div class="stat-item">
+          <strong>2015</strong>
+          <span>Fondée</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Similar Jobs -->
+  <div class="job-section">
+    <h6 class="section-title">Offres similaires</h6>
+    <div class="similar-jobs">
+      <div class="similar-job-item">
+        <h6>Senior Frontend Developer</h6>
+        <p class="company">TechCorp Solutions</p>
+        <p class="location">Paris, France</p>
+      </div>
+      <div class="similar-job-item">
+        <h6>Full Stack Developer</h6>
+        <p class="company">Digital Innovations</p>
+        <p class="location">Lyon, France</p>
+      </div>
+    </div>
+  </div>
+</div>

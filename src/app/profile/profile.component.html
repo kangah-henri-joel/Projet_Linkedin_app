@@ -1,0 +1,313 @@
+<div class="profile-container">
+  <!-- Header LinkedIn-style -->
+  <header class="linkedin-header">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="col-md-3">
+          <div class="logo">
+            <h1 class="mb-0 text-primary">LinkedIn</h1>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="search-bar">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Rechercher">
+              <button class="btn btn-primary" type="button">
+                <i class="bi bi-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="nav-links">
+            <a routerLink="/home" class="nav-link">Accueil</a>
+            <a routerLink="/network" class="nav-link">Réseau</a>
+            <a routerLink="/jobs" class="nav-link">Emplois</a>
+            <a routerLink="/messaging" class="nav-link">Messagerie</a>
+            <a routerLink="/notifications" class="nav-link">Notifications</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Profile Content -->
+  <main class="profile-main">
+    <div class="container-fluid">
+      <!-- Profile Header -->
+      <section class="profile-header">
+        <div class="cover-image-container">
+          <img *ngIf="profile$ | async as profile" src="{{ profile.coverImage }}" alt="Cover Image" class="cover-image">
+          <div class="cover-overlay"></div>
+        </div>
+        
+        <div class="profile-info-container">
+          <div *ngIf="profile$ | async as profile">
+            <div class="row">
+              <div class="col-md-8">
+                <div class="profile-main-info">
+                  <div class="avatar-container">
+                    <img src="{{ profile.avatar }}" alt="{{ profile.firstName }} {{ profile.lastName }}" class="profile-avatar">
+                    <button class="btn btn-primary btn-sm edit-avatar-btn" *ngIf="!isEditing" (click)="toggleEdit()">
+                      <i class="bi bi-camera"></i>
+                    </button>
+                  </div>
+                  
+                  <div class="profile-text-info">
+                    <div *ngIf="!isEditing">
+                      <h1 class="profile-name">{{ profile.firstName }} {{ profile.lastName }}</h1>
+                      <h2 class="profile-headline">{{ profile.headline }}</h2>
+                      <div class="profile-meta">
+                        <p class="location">
+                          <i class="bi bi-geo-alt"></i> {{ profile.location }}
+                        </p>
+                        <div class="profile-stats">
+                          <span class="stat-item">
+                            <strong>{{ profile.connections }}</strong> connexions
+                          </span>
+                          <span class="stat-item">
+                            <strong>{{ profile.profileViews }}</strong> consultations du profil
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    
+                    <div *ngIf="isEditing" class="edit-profile-form">
+                      <div class="mb-3">
+                        <label class="form-label">Prénom</label>
+                        <input type="text" class="form-control" [(ngModel)]="editProfile.firstName">
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Nom</label>
+                        <input type="text" class="form-control" [(ngModel)]="editProfile.lastName">
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Titre</label>
+                        <input type="text" class="form-control" [(ngModel)]="editProfile.headline">
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Localisation</label>
+                        <input type="text" class="form-control" [(ngModel)]="editProfile.location">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="col-md-4">
+                <div class="profile-actions">
+                  <div *ngIf="!isEditing">
+                    <button class="btn btn-primary me-2" (click)="toggleEdit()">
+                      <i class="bi bi-pencil"></i> Modifier le profil
+                    </button>
+                    <button class="btn btn-outline-secondary">
+                      <i class="bi bi-download"></i> Enregistrer au format PDF
+                    </button>
+                  </div>
+                  
+                  <div *ngIf="isEditing">
+                    <button class="btn btn-success me-2" (click)="saveProfile()">
+                      <i class="bi bi-check"></i> Enregistrer
+                    </button>
+                    <button class="btn btn-outline-secondary" (click)="cancelEdit()">
+                      <i class="bi bi-x"></i> Annuler
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Profile Content Sections -->
+      <section class="profile-content">
+        <div class="row">
+          <!-- Main Content -->
+          <div class="col-md-8">
+            <!-- About Section -->
+            <div class="profile-card">
+              <div class="card-header">
+                <h3>À propos</h3>
+                <button class="btn btn-sm btn-outline-secondary" *ngIf="!isEditing" (click)="toggleEdit()">
+                  <i class="bi bi-pencil"></i>
+                </button>
+              </div>
+              <div class="card-body">
+                <div *ngIf="profile$ | async as profile">
+                  <div *ngIf="!isEditing">
+                    <p>{{ profile.about }}</p>
+                  </div>
+                  <div *ngIf="isEditing">
+                    <textarea class="form-control" rows="4" [(ngModel)]="editProfile.about"></textarea>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Experience Section -->
+            <div class="profile-card">
+              <div class="card-header">
+                <h3>Expérience</h3>
+                <button class="btn btn-sm btn-outline-primary">
+                  <i class="bi bi-plus"></i> Ajouter
+                </button>
+              </div>
+              <div class="card-body">
+                <div *ngIf="experiences$ | async as experiences">
+                  <div class="experience-item" *ngFor="let exp of experiences">
+                    <div class="experience-header">
+                      <div class="experience-info">
+                        <h4>{{ exp.title }}</h4>
+                        <p class="company">{{ exp.company }}</p>
+                        <p class="duration">
+                          {{ formatDate(exp.startDate) }} - 
+                          <span *ngIf="exp.current">Actuel</span>
+                          <span *ngIf="!exp.current">{{ formatDate(exp.endDate || '') }}</span>
+                        </p>
+                        <p class="location">
+                          <i class="bi bi-geo-alt"></i> {{ exp.location }}
+                        </p>
+                      </div>
+                      <button class="btn btn-sm btn-outline-secondary">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                    </div>
+                    <div class="experience-description">
+                      <p>{{ exp.description }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Education Section -->
+            <div class="profile-card">
+              <div class="card-header">
+                <h3>Formation</h3>
+                <button class="btn btn-sm btn-outline-primary">
+                  <i class="bi bi-plus"></i> Ajouter
+                </button>
+              </div>
+              <div class="card-body">
+                <div *ngIf="education$ | async as education">
+                  <div class="education-item" *ngFor="let edu of education">
+                    <div class="education-header">
+                      <div class="education-info">
+                        <h4>{{ edu.school }}</h4>
+                        <p class="degree">{{ edu.degree }}, {{ edu.field }}</p>
+                        <p class="duration">
+                          {{ formatDate(edu.startDate) }} - 
+                          <span *ngIf="edu.current">Actuel</span>
+                          <span *ngIf="!edu.current">{{ formatDate(edu.endDate || '') }}</span>
+                        </p>
+                      </div>
+                      <button class="btn btn-sm btn-outline-secondary">
+                        <i class="bi bi-pencil"></i>
+                      </button>
+                    </div>
+                    <div class="education-description">
+                      <p>{{ edu.description }}</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Skills Section -->
+            <div class="profile-card">
+              <div class="card-header">
+                <h3>Compétences</h3>
+                <button class="btn btn-sm btn-outline-primary">
+                  <i class="bi bi-plus"></i> Ajouter
+                </button>
+              </div>
+              <div class="card-body">
+                <div *ngIf="skills$ | async as skills">
+                  <div class="skills-grid">
+                    <div class="skill-item" *ngFor="let skill of skills">
+                      <div class="skill-info">
+                        <span class="skill-name">{{ skill.name }}</span>
+                        <span class="skill-level">{{ getSkillLevelLabel(skill.level) }}</span>
+                      </div>
+                      <div class="skill-endorsements">
+                        <i class="bi bi-plus-circle" (click)="endorseSkill(skill.id)"></i>
+                        <span>{{ skill.endorsements }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sidebar -->
+          <div class="col-md-4">
+            <!-- Profile Stats Card -->
+            <div class="sidebar-card">
+              <h6>Statistiques du profil</h6>
+              <div *ngIf="profile$ | async as profile">
+                <div class="stats-list">
+                  <div class="stat-item">
+                    <span class="stat-label">Consultations du profil</span>
+                    <span class="stat-value">{{ profile.profileViews }}</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-label">Impressions des publications</span>
+                    <span class="stat-value">{{ profile.postImpressions }}</span>
+                  </div>
+                  <div class="stat-item">
+                    <span class="stat-label">Connexions</span>
+                    <span class="stat-value">{{ profile.connections }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- People Also Viewed -->
+            <div class="sidebar-card">
+              <h6>Personnes également consultées</h6>
+              <div class="viewed-profiles">
+                <div class="viewed-profile-item">
+                  <img src="assets/images/ami2.png" alt="Profile" class="viewed-avatar">
+                  <div class="viewed-info">
+                    <p class="mb-0 fw-bold small">Marie Dubois</p>
+                    <p class="mb-0 text-muted small">Senior Frontend Developer</p>
+                  </div>
+                </div>
+                <div class="viewed-profile-item">
+                  <img src="assets/images/ami3.jpg" alt="Profile" class="viewed-avatar">
+                  <div class="viewed-info">
+                    <p class="mb-0 fw-bold small">Pierre Martin</p>
+                    <p class="mb-0 text-muted small">Product Manager</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Recent Activity -->
+            <div class="sidebar-card">
+              <h6>Activité récente</h6>
+              <div class="activity-list">
+                <div class="activity-item">
+                  <i class="bi bi-briefcase text-primary"></i>
+                  <div class="activity-content">
+                    <p class="mb-0 small">A commencé un nouveau poste</p>
+                    <p class="mb-0 text-muted small">Il y a 2 jours</p>
+                  </div>
+                </div>
+                <div class="activity-item">
+                  <i class="bi bi-article text-success"></i>
+                  <div class="activity-content">
+                    <p class="mb-0 small">A publié un article</p>
+                    <p class="mb-0 text-muted small">Il y a 1 semaine</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>

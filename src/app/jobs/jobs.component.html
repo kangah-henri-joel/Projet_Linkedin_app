@@ -1,0 +1,134 @@
+<div class="jobs-container">
+  <!-- Header LinkedIn-style -->
+  <header class="linkedin-header">
+    <div class="container-fluid">
+      <div class="row align-items-center">
+        <div class="col-md-3">
+          <div class="logo">
+            <h1 class="mb-0 text-primary">LinkedIn</h1>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="search-bar">
+            <div class="input-group">
+              <input 
+                type="text" 
+                class="form-control" 
+                placeholder="Rechercher un poste, une entreprise..."
+                [(ngModel)]="searchQuery"
+                (keyup.enter)="onSearch()"
+              >
+              <button class="btn btn-primary" type="button" (click)="onSearch()">
+                <i class="bi bi-search"></i> Rechercher
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="nav-links">
+            <a routerLink="/home" class="nav-link">Accueil</a>
+            <a routerLink="/network" class="nav-link">Réseau</a>
+            <a routerLink="/jobs" class="nav-link active">Emplois</a>
+            <a routerLink="/messaging" class="nav-link">Messagerie</a>
+            <a routerLink="/notifications" class="nav-link">Notifications</a>
+            <a routerLink="/profile" class="nav-link">
+              <img src="assets/images/KangahHenriJoel.jpg" alt="Profile" class="rounded-circle" style="width: 24px; height: 24px;">
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="jobs-main">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Filters Sidebar -->
+        <div class="col-md-3 filters-sidebar">
+          <div class="filter-card">
+            <h5 class="mb-3">Filtres</h5>
+            
+            <div class="mb-3">
+              <label class="form-label">Lieu</label>
+              <input 
+                type="text" 
+                class="form-control" 
+                placeholder="Ville ou pays..."
+                [(ngModel)]="filters.location"
+                (ngModelChange)="onFilterChange()"
+              >
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Type de contrat</label>
+              <select 
+                class="form-select" 
+                [(ngModel)]="filters.type"
+                (ngModelChange)="onFilterChange()"
+              >
+                <option value="">Tous les types</option>
+                <option value="full-time">Temps plein</option>
+                <option value="part-time">Temps partiel</option>
+                <option value="contract">Contrat</option>
+                <option value="internship">Stage</option>
+              </select>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label">Niveau d'expérience</label>
+              <select 
+                class="form-select" 
+                [(ngModel)]="filters.experience"
+                (ngModelChange)="onFilterChange()"
+              >
+                <option value="">Tous les niveaux</option>
+                <option value="entry">Débutant</option>
+                <option value="mid">Intermédiaire</option>
+                <option value="senior">Senior</option>
+                <option value="executive">Direction</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Jobs List -->
+        <div class="col-md-5 jobs-list">
+          <h4 class="mb-4">Offres d'emploi</h4>
+          <div class="jobs-container-list">
+            <div class="jobs-list">
+              <app-job-card 
+                *ngFor="let job of jobs$ | async" 
+                [job]="job"
+                (jobSelected)="selectJob($event)"
+                (jobApplied)="applyToJob($event)"
+                (jobSaved)="saveJob($event)"
+                (jobShared)="shareJob($event)"
+                (companyClicked)="viewCompanyWebsite($event)"
+              ></app-job-card>
+            </div>
+          </div>
+        </div>
+
+        <!-- Job Details -->
+        <div class="col-md-4 job-details">
+          <div *ngIf="selectedJob$ | async as selectedJob; else noJobSelected">
+            <app-job-details 
+              [job]="selectedJob"
+              (applyJob)="applyToJob($event)"
+            ></app-job-details>
+          </div>
+          <ng-template #noJobSelected>
+            <div class="no-job-selected">
+              <div class="text-center py-5">
+                <i class="bi bi-briefcase display-1 text-muted"></i>
+                <h5 class="mt-3">Sélectionnez une offre d'emploi</h5>
+                <p class="text-muted">Cliquez sur une offre pour voir les détails</p>
+              </div>
+            </div>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

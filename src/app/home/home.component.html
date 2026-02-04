@@ -1,0 +1,244 @@
+<div class="home-container">
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top border-bottom">
+    <div class="container-fluid px-3">
+      <div class="navbar-brand">
+        <h1 class="mb-0 text-primary fs-4">LinkedIn</h1>
+      </div>
+      <div class="search-box mx-auto">
+        <div class="input-group">
+          <i class="bi bi-search position-absolute ps-3" style="top: 50%; transform: translateY(-50%);"></i>
+          <input type="text" class="form-control ps-5" placeholder="Rechercher">
+        </div>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <a routerLink="/home" class="nav-link active text-dark">
+          <i class="bi bi-house-door-fill"></i>
+          <span class="d-none d-lg-inline ms-1">Accueil</span>
+        </a>
+        <a routerLink="/network" class="nav-link text-secondary">
+          <i class="bi bi-people"></i>
+          <span class="d-none d-lg-inline ms-1">Réseau</span>
+        </a>
+        <a routerLink="/jobs" class="nav-link text-secondary">
+          <i class="bi bi-briefcase"></i>
+          <span class="d-none d-lg-inline ms-1">Emplois</span>
+        </a>
+        <a routerLink="/messaging" class="nav-link text-secondary">
+          <i class="bi bi-chat-dots"></i>
+          <span class="d-none d-lg-inline ms-1">Messagerie</span>
+        </a>
+        <a routerLink="/notifications" class="nav-link text-secondary">
+          <i class="bi bi-bell"></i>
+          <span class="d-none d-lg-inline ms-1">Notifications</span>
+        </a>
+        <div class="nav-link">
+          <a routerLink="/profile">
+            <img src="assets/images/KangahHenriJoel.jpg" alt="Profile" class="rounded-circle" style="width: 24px; height: 24px;">
+          </a>
+          
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content pt-5">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Left Sidebar -->
+        <div class="col-lg-3 d-none d-lg-block">
+          <div class="left-sidebar">
+            <!-- Profile Card -->
+            <div class="profile-card">
+              <div class="profile-cover"></div>
+              <div class="profile-avatar-container">
+                <a routerLink="/profile">
+                  <img src="assets/images/KangahHenriJoel.jpg" alt="KANGAH HENRI JOEL" class="profile-avatar">
+                </a>
+              </div>
+              <div class="profile-info text-center">
+                <h6 class="mb-1">KANGAH HENRI JOEL</h6>
+                <p class="text-muted small mb-2">Étudiant en EIT à INPHB</p>
+              </div>
+              <div class="profile-stats">
+                <div class="stat-item">
+                  <span class="stat-number">523</span>
+                  <span class="stat-label">connexions</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number">127</span>
+                  <span class="stat-label">vues</span>
+                </div>
+              </div>
+              <div class="profile-actions">
+                <button class="btn btn-outline-secondary btn-sm w-100">Accéder aux options Premium</button>
+              </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <div class="nav-links-card">
+              <a href="#" class="nav-link-item">
+                <i class="bi bi-bookmark"></i>
+                <span>Éléments sauvegardés</span>
+              </a>
+              <a href="#" class="nav-link-item">
+                <i class="bi bi-people"></i>
+                <span>Groupes</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Feed -->
+        <div class="col-lg-6">
+          <!-- Create Post -->
+          <div class="create-post-card">
+            <div class="d-flex gap-3">
+              <img src="assets/images/KangahHenriJoel.jpg" alt="Profile" class="rounded-circle" style="width: 48px; height: 48px;">
+              <div class="flex-grow-1">
+                <button class="btn btn-light w-100 text-start rounded-pill" data-bs-toggle="modal" data-bs-target="#createPostModal">
+                  Démarrer une publication
+                </button>
+              </div>
+            </div>
+            <div class="post-actions">
+              <button class="btn btn-light btn-sm">
+                <i class="bi bi-image text-primary"></i> Photo
+              </button>
+              <button class="btn btn-light btn-sm">
+                <i class="bi bi-play-circle text-success"></i> Video
+              </button>
+              <button class="btn btn-light btn-sm">
+                <i class="bi bi-calendar-event text-warning"></i> Événement
+              </button>
+              <button class="btn btn-light btn-sm">
+                <i class="bi bi-newspaper text-danger"></i> Écrire un article
+              </button>
+            </div>
+          </div>
+
+          <!-- Posts Feed -->
+          <div class="posts-feed">
+            <div *ngFor="let post of posts" class="post-card">
+              <div class="post-header">
+                <img [src]="post.authorAvatar" [alt]="post.author" class="author-avatar">
+                <div class="author-info">
+                  <h6 class="mb-0">{{ post.author }}</h6>
+                  <p class="text-muted small mb-0">{{ post.authorTitle }}</p>
+                  <p class="text-muted small">{{ post.time }}</p>
+                </div>
+                <button class="btn btn-light btn-sm">
+                  <i class="bi bi-three-dots"></i>
+                </button>
+              </div>
+              
+              <div class="post-content">
+                <p>{{ post.content }}</p>
+                <div *ngIf="post.image" class="post-image">
+                  <img [src]="post.image" [alt]="'Image de ' + post.author" class="img-fluid rounded">
+                </div>
+              </div>
+              
+              <div class="post-stats">
+                <div class="d-flex justify-content-between text-muted small">
+                  <span><i class="bi bi-hand-thumbs-up"></i> {{ post.likes }}</span>
+                  <span>{{ post.comments }} commentaires</span>
+                  <span>{{ post.shares }} partages</span>
+                </div>
+              </div>
+              
+              <div class="post-actions">
+                <button class="btn btn-light btn-sm w-100" [class.text-primary]="post.hasLiked" (click)="likePost(post.id)">
+                  <i class="bi" [class.bi-hand-thumbs-up]="!post.hasLiked" [class.bi-hand-thumbs-up-fill]="post.hasLiked"></i>
+                  Recommander
+                </button>
+                <button class="btn btn-light btn-sm w-100" (click)="commentOnPost(post.id)">
+                  <i class="bi bi-chat"></i> Commenter
+                </button>
+                <button class="btn btn-light btn-sm w-100" (click)="sharePost(post.id)">
+                  <i class="bi bi-share"></i> Partager
+                </button>
+                <button class="btn btn-light btn-sm">
+                  <i class="bi bi-send"></i> Envoyer
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="col-lg-3 d-none d-lg-block">
+          <!-- News Card -->
+          <div class="news-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 class="mb-0">Actualités LinkedIn</h6>
+              <i class="bi bi-info-circle text-muted"></i>
+            </div>
+            <div class="news-item">
+              <small class="text-muted">Il y a 1h</small>
+              <p class="mb-1 fw-bold">Top des tendances</p>
+              <p class="mb-0 small">Technologie</p>
+            </div>
+            <div class="news-item">
+              <small class="text-muted">Il y a 2h</small>
+              <p class="mb-1 fw-bold">Nouvelles offres d'emploi</p>
+              <p class="mb-0 small">Développement Web</p>
+            </div>
+            <div class="news-item">
+              <small class="text-muted">Il y a 3h</small>
+              <p class="mb-1 fw-bold">Actualités INPHB</p>
+              <p class="mb-0 small">Éducation</p>
+            </div>
+            <a href="#" class="text-primary text-decoration-none small">Afficher plus →</a>
+          </div>
+
+          <!-- Suggestions Card -->
+          <div class="suggestions-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 class="mb-0">Suggestions pour vous</h6>
+              <a href="#" class="text-primary text-decoration-none small">Voir tout</a>
+            </div>
+            <div class="suggestion-item">
+              <img src="assets/images/ami2.png" alt="Suggestion" class="suggestion-avatar">
+              <div class="suggestion-info">
+                <p class="mb-0 fw-bold small">Marie Dubois</p>
+                <p class="mb-0 text-muted small">Senior Frontend Developer</p>
+                <button class="btn btn-primary btn-sm mt-1">Se connecter</button>
+              </div>
+              <button class="btn btn-light btn-sm">
+                <i class="bi bi-x"></i>
+              </button>
+            </div>
+            <div class="suggestion-item">
+              <img src="assets/images/ami3.jpg" alt="Suggestion" class="suggestion-avatar">
+              <div class="suggestion-info">
+                <p class="mb-0 fw-bold small">Pierre Martin</p>
+                <p class="mb-0 text-muted small">Product Manager</p>
+                <button class="btn btn-primary btn-sm mt-1">Se connecter</button>
+              </div>
+              <button class="btn btn-light btn-sm">
+                <i class="bi bi-x"></i>
+              </button>
+            </div>
+            <a href="#" class="text-primary text-decoration-none small">Afficher plus →</a>
+          </div>
+
+          <!-- Footer Links -->
+          <div class="footer-links">
+            <div class="d-flex flex-wrap gap-2">
+              <a href="#" class="text-muted text-decoration-none small">À propos</a>
+              <a href="#" class="text-muted text-decoration-none small">Accessibilité</a>
+              <a href="#" class="text-muted text-decoration-none small">Aide</a>
+              <a href="#" class="text-muted text-decoration-none small">Conditions</a>
+              <a href="#" class="text-muted text-decoration-none small">Confidentialité</a>
+              <a href="#" class="text-muted text-decoration-none small">Publicités</a>
+              <a href="#" class="text-muted text-decoration-none small">Préférences</a>
+            </div>
+            <p class="text-muted small mb-0 mt-2">LinkedIn Corporation © 2024</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

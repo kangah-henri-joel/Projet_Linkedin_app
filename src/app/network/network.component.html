@@ -1,0 +1,316 @@
+<div class="network-container">
+  <!-- Navigation Bar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-white fixed-top border-bottom">
+    <div class="container-fluid px-3">
+      <div class="navbar-brand">
+        <h1 class="mb-0 text-primary fs-4">LinkedIn</h1>
+      </div>
+      <div class="search-box mx-auto">
+        <div class="input-group">
+          <i class="bi bi-search position-absolute ps-3" style="top: 50%; transform: translateY(-50%);"></i>
+          <input type="text" class="form-control ps-5" placeholder="Rechercher">
+        </div>
+      </div>
+      <div class="d-flex align-items-center gap-3">
+        <a routerLink="/home" class="nav-link text-secondary">
+          <i class="bi bi-house-door"></i>
+          <span class="d-none d-lg-inline ms-1">Accueil</span>
+        </a>
+        <a routerLink="/network" class="nav-link active text-dark">
+          <i class="bi bi-people"></i>
+          <span class="d-none d-lg-inline ms-1">Réseau</span>
+        </a>
+        <a routerLink="/jobs" class="nav-link text-secondary">
+          <i class="bi bi-briefcase"></i>
+          <span class="d-none d-lg-inline ms-1">Emplois</span>
+        </a>
+        <a routerLink="/messaging" class="nav-link text-secondary">
+          <i class="bi bi-chat-dots"></i>
+          <span class="d-none d-lg-inline ms-1">Messagerie</span>
+        </a>
+        <a routerLink="/notifications" class="nav-link text-secondary">
+          <i class="bi bi-bell"></i>
+          <span class="d-none d-lg-inline ms-1">Notifications</span>
+        </a>
+        <a routerLink="/profile" class="nav-link position-relative">
+          <img src="assets/images/KangahHenriJoel.jpg" alt="Profile" class="rounded-circle" style="width: 24px; height: 24px; object-fit: cover;">
+          <span class="position-absolute top-0 start-100 translate-middle badge border border-light rounded-circle bg-danger p-1">
+            <span class="visually-hidden">New alerts</span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Content -->
+  <main class="main-content pt-5">
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Left Sidebar -->
+        <div class="col-lg-3 d-none d-lg-block">
+          <div class="left-sidebar">
+            <!-- Profile Card -->
+            <div class="profile-card">
+              <div class="profile-cover"></div>
+              <div class="profile-avatar-container">
+                <a routerLink="/profile">
+                  <img src="assets/images/KangahHenriJoel.jpg" alt="Profile" class="profile-avatar">
+                </a>
+              </div>
+              <div class="profile-info text-center">
+                <h6 class="mb-0 fw-bold">KANGAH HENRI JOEL</h6>
+                <p class="mb-0 text-muted small">Étudiant en EIT à INPHB</p>
+              </div>
+              <div class="profile-stats">
+                <div class="stat-item">
+                  <span class="stat-number">523</span>
+                  <span class="stat-label">connexions</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number">127</span>
+                  <span class="stat-label">vues</span>
+                </div>
+              </div>
+              <div class="profile-actions">
+                <button class="btn btn-outline-secondary btn-sm w-100">Accéder aux options Premium</button>
+              </div>
+            </div>
+
+            <!-- Navigation Links -->
+            <div class="nav-links-card">
+              <a href="#" class="nav-link-item">
+                <i class="bi bi-bookmark"></i>
+                <span>Éléments sauvegardés</span>
+              </a>
+              <a href="#" class="nav-link-item">
+                <i class="bi bi-people"></i>
+                <span>Groupes</span>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Content -->
+        <div class="col-lg-6">
+          <!-- Search Section -->
+          <div class="search-section">
+            <div class="search-container">
+              <i class="bi bi-search search-icon"></i>
+              <input 
+                type="text" 
+                class="form-control search-input" 
+                placeholder="Rechercher par nom, entreprise ou mot-clé"
+                [(ngModel)]="searchQuery"
+                (input)="onSearchChange()"
+              >
+            </div>
+            <div class="search-filters">
+              <button class="btn btn-outline-secondary btn-sm">
+                <i class="bi bi-funnel"></i> Filtres
+              </button>
+            </div>
+          </div>
+
+          <!-- Tabs Navigation -->
+          <div class="tabs-container">
+            <ul class="nav nav-tabs">
+              <li class="nav-item">
+                <a class="nav-link" 
+                   [class.active]="activeTab === 'invitations'" 
+                   (click)="setActiveTab('invitations')">
+                  Invitations
+                  <span class="badge bg-primary ms-1" *ngIf="invitationsCount > 0">{{ invitationsCount }}</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" 
+                   [class.active]="activeTab === 'connections'" 
+                   (click)="setActiveTab('connections')">
+                  Connexions
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" 
+                   [class.active]="activeTab === 'people'" 
+                   (click)="setActiveTab('people')">
+                  Personnes
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" 
+                   [class.active]="activeTab === 'pages'" 
+                   (click)="setActiveTab('pages')">
+                  Pages
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" 
+                   [class.active]="activeTab === 'newsletters'" 
+                   (click)="setActiveTab('newsletters')">
+                  Newsletters
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Tab Content -->
+          <div class="tab-content">
+            <!-- Invitations Tab -->
+            <div *ngIf="activeTab === 'invitations'" class="invitations-section">
+              <div *ngFor="let invitation of invitations$ | async" class="invitation-item">
+                <app-invitation 
+                  [invitation]="invitation" 
+                  (accept)="acceptInvitation(invitation.id)"
+                  (ignore)="ignoreInvitation(invitation.id)">
+                </app-invitation>
+              </div>
+            </div>
+
+            <!-- Connections Tab -->
+            <div *ngIf="activeTab === 'connections'" class="connections-section">
+              <div *ngFor="let profile of peopleProfiles$ | async" class="profile-item">
+                <div *ngIf="profile.isConnected">
+                  <app-profile-card 
+                    [profile]="profile" 
+                    (connect)="connectWithProfile(profile.id)"
+                    (message)="sendMessageToProfile(profile.id)"
+                    (profileClicked)="viewProfile(profile.id)">
+                  </app-profile-card>
+                </div>
+              </div>
+            </div>
+
+            <!-- People Tab -->
+            <div *ngIf="activeTab === 'people'" class="people-section">
+              <div *ngFor="let profile of peopleProfiles$ | async" class="profile-item">
+                <div *ngIf="!profile.isConnected">
+                  <app-profile-card 
+                    [profile]="profile" 
+                    (connect)="connectWithProfile(profile.id)"
+                    (message)="sendMessageToProfile(profile.id)"
+                    (profileClicked)="viewProfile(profile.id)">
+                  </app-profile-card>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pages Tab -->
+            <div *ngIf="activeTab === 'pages'" class="pages-section">
+              <div *ngFor="let profile of companyProfiles$ | async" class="profile-item">
+                <app-profile-card 
+                  [profile]="profile" 
+                  (connect)="connectWithProfile(profile.id)"
+                  (message)="sendMessageToProfile(profile.id)"
+                  (profileClicked)="viewProfile(profile.id)">
+                </app-profile-card>
+              </div>
+            </div>
+
+            <!-- Newsletters Tab -->
+            <div *ngIf="activeTab === 'newsletters'" class="newsletters-section">
+              <div *ngFor="let profile of schoolProfiles$ | async" class="profile-item">
+                <app-profile-card 
+                  [profile]="profile" 
+                  (connect)="connectWithProfile(profile.id)"
+                  (message)="sendMessageToProfile(profile.id)"
+                  (profileClicked)="viewProfile(profile.id)">
+                </app-profile-card>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right Sidebar -->
+        <div class="col-lg-3 d-none d-lg-block">
+          <!-- Suggestions Card -->
+          <div class="suggestions-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 class="mb-0">Suggestions pour vous</h6>
+              <a href="#" class="text-primary text-decoration-none small">Voir tout</a>
+            </div>
+            <div class="suggestion-item">
+              <img src="assets/images/amie.jpg" alt="Suggestion" class="suggestion-avatar">
+              <div class="suggestion-info">
+                <p class="mb-0 fw-bold small">Marie Dubois</p>
+                <p class="mb-0 text-muted small">Senior Frontend Developer at TechCorp</p>
+                <p class="mb-0 text-muted small">15 connexions en commun</p>
+                <button class="btn btn-primary btn-sm mt-2" 
+                        [disabled]="loadingProfiles.has('1')"
+                        (click)="connectWithProfile('1')">
+                  <span *ngIf="loadingProfiles.has('1')" class="spinner-border spinner-border-sm me-1"></span>
+                  {{ loadingProfiles.has('1') ? 'Connexion...' : 'Se connecter' }}
+                </button>
+              </div>
+              <button class="btn btn-light btn-sm" (click)="ignoreSuggestion('1')">
+                <i class="bi bi-x"></i>
+              </button>
+            </div>
+            <div class="suggestion-item">
+              <img src="assets/images/ami2.png" alt="Suggestion" class="suggestion-avatar">
+              <div class="suggestion-info">
+                <p class="mb-0 fw-bold small">Pierre Martin</p>
+                <p class="mb-0 text-muted small">Product Manager at StartupXYZ</p>
+                <p class="mb-0 text-muted small">8 connexions en commun</p>
+                <button class="btn btn-primary btn-sm mt-2" 
+                        [disabled]="loadingProfiles.has('2')"
+                        (click)="connectWithProfile('2')">
+                  <span *ngIf="loadingProfiles.has('2')" class="spinner-border spinner-border-sm me-1"></span>
+                  {{ loadingProfiles.has('2') ? 'Connexion...' : 'Se connecter' }}
+                </button>
+              </div>
+              <button class="btn btn-light btn-sm" (click)="ignoreSuggestion('2')">
+                <i class="bi bi-x"></i>
+              </button>
+            </div>
+            <div class="suggestion-item">
+              <img src="assets/images/ami4.jpg" alt="Suggestion" class="suggestion-avatar">
+              <div class="suggestion-info">
+                <p class="mb-0 fw-bold small">Sophie Bernard</p>
+                <p class="mb-0 text-muted small">UX Designer at DesignHub</p>
+                <p class="mb-0 text-muted small">12 connexions en commun</p>
+                <button class="btn btn-primary btn-sm mt-2" 
+                        [disabled]="loadingProfiles.has('3')"
+                        (click)="connectWithProfile('3')">
+                  <span *ngIf="loadingProfiles.has('3')" class="spinner-border spinner-border-sm me-1"></span>
+                  {{ loadingProfiles.has('3') ? 'Connexion...' : 'Se connecter' }}
+                </button>
+              </div>
+              <button class="btn btn-light btn-sm" (click)="ignoreSuggestion('3')">
+                <i class="bi bi-x"></i>
+              </button>
+            </div>
+            <a href="#" class="text-primary text-decoration-none small">Afficher plus →</a>
+          </div>
+
+          <!-- People Also Viewed -->
+          <div class="people-viewed-card">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h6 class="mb-0">Personnes également consultées</h6>
+            </div>
+            <div class="viewed-item">
+              <img src="assets/images/ami5.jpg" alt="Person" class="viewed-avatar">
+              <div class="viewed-info">
+                <p class="mb-0 fw-bold small">Thomas Petit</p>
+                <p class="mb-0 text-muted small">Data Scientist at Analytics Pro</p>
+              </div>
+            </div>
+            <div class="viewed-item">
+              <img src="assets/images/ami6.jpg" alt="Person" class="viewed-avatar">
+              <div class="viewed-info">
+                <p class="mb-0 fw-bold small">Claire Robert</p>
+                <p class="mb-0 text-muted small">Marketing Manager at StartupHub</p>
+              </div>
+            </div>
+            <div class="viewed-item">
+              <img src="assets/images/publAmi3.jpg" alt="Person" class="viewed-avatar">
+              <div class="viewed-info">
+                <p class="mb-0 fw-bold small">TechCorp Solutions</p>
+                <p class="mb-0 text-muted small">Technology Company</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

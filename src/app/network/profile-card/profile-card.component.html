@@ -1,0 +1,39 @@
+<div class="profile-card">
+  <div class="profile-header">
+    <div class="profile-avatar">
+      <img [src]="profile.avatar || 'assets/avatars/default.jpg'" 
+           [alt]="getProfileType()"
+           onerror="this.src='assets/avatars/default.jpg'">
+    </div>
+    <div class="profile-info">
+      <h6 class="profile-name" (click)="onProfileClick()">{{ getProfileType() }}</h6>
+      <p class="profile-headline">{{ getProfileSubtext() }}</p>
+      <p class="profile-location" *ngIf="profile.location">
+        <i class="bi bi-geo-alt"></i> {{ profile.location }}
+      </p>
+      <div class="profile-connections" *ngIf="profile.mutualConnections">
+        <span class="mutual-connections">
+          <i class="bi bi-people"></i> {{ profile.mutualConnections }} connexions en commun
+        </span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="profile-actions">
+    <button 
+      class="btn" 
+      [class]="getActionButtonClass()"
+      [disabled]="isButtonDisabled()"
+      (click)="onConnect()"
+    >
+      <i class="bi" 
+         [class.bi-person-plus]="!profile.isConnected && !isLoading"
+         [class.bi-check-circle]="profile.isConnected"
+         [class.bi-hourglass-split]="isLoading"></i>
+      {{ getActionButtonText() }}
+    </button>
+    <button class="btn btn-outline-secondary" (click)="onMessage()" title="Envoyer un message">
+      <i class="bi bi-envelope"></i>
+    </button>
+  </div>
+</div>

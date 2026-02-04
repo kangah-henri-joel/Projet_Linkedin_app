@@ -1,0 +1,32 @@
+<div class="invitation-card">
+  <div class="invitation-header">
+    <div class="sender-avatar">
+      <img [src]="invitation.sender.avatar || 'assets/avatars/default.jpg'" 
+           [alt]="invitation.sender.firstName + ' ' + invitation.sender.lastName"
+           onerror="this.src='assets/avatars/default.jpg'">
+    </div>
+    <div class="sender-info">
+      <h6 class="sender-name">
+        {{ invitation.sender.firstName }} {{ invitation.sender.lastName }}
+      </h6>
+      <p class="sender-headline">{{ invitation.sender.headline }}</p>
+      <p class="invitation-date">{{ getFormattedDate() }}</p>
+      <div class="mutual-connections" *ngIf="invitation.sender.mutualConnections">
+        <i class="bi bi-people"></i> {{ invitation.sender.mutualConnections }} connexions en commun
+      </div>
+    </div>
+  </div>
+  
+  <div class="invitation-message" *ngIf="invitation.message">
+    <p>{{ invitation.message }}</p>
+  </div>
+  
+  <div class="invitation-actions">
+    <button class="btn btn-primary" (click)="onAccept()">
+      <i class="bi bi-check-lg"></i> Accepter
+    </button>
+    <button class="btn btn-outline-secondary" (click)="onIgnore()">
+      Ignorer
+    </button>
+  </div>
+</div>

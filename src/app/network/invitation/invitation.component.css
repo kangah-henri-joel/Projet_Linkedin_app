@@ -1,0 +1,142 @@
+.invitation-card {
+  background-color: #ffffff;
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e1e5e9;
+  transition: all 0.2s ease;
+}
+
+.invitation-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.invitation-header {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.sender-avatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.sender-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: #f3f2ef;
+}
+
+.sender-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.sender-name {
+  color: #2d2d2d;
+  font-weight: 600;
+  font-size: 16px;
+  margin: 0 0 4px 0;
+  line-height: 1.3;
+}
+
+.sender-headline {
+  color: #666666;
+  font-size: 14px;
+  margin: 0 0 4px 0;
+  line-height: 1.4;
+}
+
+.invitation-date {
+  color: #999999;
+  font-size: 12px;
+  margin: 0 0 8px 0;
+}
+
+.mutual-connections {
+  color: #0a66c2;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mutual-connections i {
+  font-size: 11px;
+}
+
+.invitation-message {
+  background-color: #f3f2ef;
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.invitation-message p {
+  color: #2d2d2d;
+  font-size: 14px;
+  line-height: 1.4;
+  margin: 0;
+  font-style: italic;
+}
+
+.invitation-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.invitation-actions .btn {
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-weight: 500;
+  flex: 1;
+}
+
+.btn-primary {
+  background-color: #0a66c2;
+  border-color: #0a66c2;
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #004182;
+  border-color: #004182;
+}
+
+.btn-outline-secondary {
+  color: #666666;
+  border-color: #e1e5e9;
+  background-color: white;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #f3f2ef;
+  color: #666666;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .invitation-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .sender-avatar {
+    width: 48px;
+    height: 48px;
+  }
+  
+  .invitation-actions {
+    flex-direction: column;
+  }
+  
+  .invitation-actions .btn {
+    width: 100%;
+  }
+}

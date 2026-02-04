@@ -1,0 +1,398 @@
+/* Bootstrap Icons Integration */
+@import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css');
+
+/* LinkedIn Messaging Styles */
+.messaging-container {
+  min-height: 100vh;
+  background-color: #f3f2ef;
+}
+
+/* Header Styles */
+.linkedin-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e1e5e9;
+  padding: 12px 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.linkedin-header .logo h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0a66c2;
+  margin: 0;
+}
+
+.search-bar .input-group {
+  max-width: 600px;
+}
+
+.search-bar .form-control {
+  border-radius: 8px 0 0 8px;
+  border-right: none;
+  padding: 12px 16px;
+}
+
+.search-bar .btn {
+  border-radius: 0 8px 8px 0;
+  background-color: #0a66c2;
+  border-color: #0a66c2;
+  padding: 12px 20px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.nav-link {
+  color: #666666;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 14px;
+  transition: color 0.2s;
+  position: relative;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: #0a66c2;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background-color: #0a66c2;
+}
+
+/* Main Content */
+.messaging-main {
+  height: calc(100vh - 70px);
+  padding: 0;
+}
+
+/* Conversations List */
+.conversations-list {
+  border-right: 1px solid #e1e5e9;
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+}
+
+.conversations-header {
+  padding: 20px;
+  border-bottom: 1px solid #e1e5e9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.conversations-header h4 {
+  margin: 0;
+  color: #2d2d2d;
+  font-weight: 600;
+}
+
+.conversations {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.conversation-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  border-bottom: 1px solid #f3f2ef;
+}
+
+.conversation-item:hover {
+  background-color: #f8f9fa;
+}
+
+.conversation-item.active {
+  background-color: #e3f2fd;
+  border-left: 3px solid #0a66c2;
+}
+
+.conversation-avatar {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.conversation-avatar img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.online-indicator {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  width: 12px;
+  height: 12px;
+  background-color: #28a745;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+}
+
+.conversation-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.conversation-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.conversation-header h6 {
+  color: #2d2d2d;
+  font-weight: 600;
+  font-size: 16px;
+  margin: 0;
+}
+
+.conversation-time {
+  color: #999999;
+  font-size: 12px;
+}
+
+.last-message {
+  color: #666666;
+  font-size: 14px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.conversation-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.unread-count {
+  background-color: #0a66c2;
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* Chat Area */
+.chat-area {
+  background-color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.chat-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #e1e5e9;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.chat-user-info {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.chat-user-info img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.chat-user-info h6 {
+  margin: 0;
+  color: #2d2d2d;
+  font-weight: 600;
+}
+
+.user-status {
+  font-size: 12px;
+  color: #666666;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.chat-actions {
+  display: flex;
+  gap: 8px;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.message {
+  display: flex;
+  max-width: 70%;
+}
+
+.message.sent {
+  align-self: flex-end;
+}
+
+.message.received {
+  align-self: flex-start;
+}
+
+.message-content {
+  background-color: #f3f2ef;
+  padding: 12px 16px;
+  border-radius: 18px;
+  position: relative;
+}
+
+.message.sent .message-content {
+  background-color: #0a66c2;
+  color: white;
+}
+
+.message-content p {
+  margin: 0;
+  line-height: 1.4;
+}
+
+.message-time {
+  font-size: 11px;
+  color: #999999;
+  margin-top: 4px;
+  display: block;
+}
+
+.message.sent .message-time {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.chat-input {
+  padding: 20px;
+  border-top: 1px solid #e1e5e9;
+}
+
+.chat-input .input-group {
+  max-width: none;
+}
+
+.chat-input .form-control {
+  border-radius: 20px;
+  border-right: none;
+  padding: 12px 20px;
+}
+
+.chat-input .btn {
+  border-radius: 20px;
+  padding: 12px 16px;
+}
+
+.chat-input .btn:last-child {
+  border-radius: 0 20px 20px 0;
+}
+
+/* No Conversation State */
+.no-conversation {
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.no-conversation-content {
+  text-align: center;
+  color: #666666;
+}
+
+.no-conversation-content i {
+  font-size: 48px;
+  color: #999999;
+  margin-bottom: 16px;
+}
+
+.no-conversation-content h5 {
+  color: #2d2d2d;
+  margin-bottom: 8px;
+}
+
+.no-conversation-content p {
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .linkedin-header .row {
+    flex-direction: column;
+    gap: 15px;
+  }
+  
+  .linkedin-header .col-md-3,
+  .linkedin-header .col-md-6 {
+    width: 100%;
+  }
+  
+  .nav-links {
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+  
+  .messaging-main .row {
+    flex-direction: column;
+  }
+  
+  .conversations-list {
+    border-right: none;
+    border-bottom: 1px solid #e1e5e9;
+    height: 300px;
+  }
+  
+  .chat-area {
+    height: calc(100vh - 370px);
+  }
+  
+  .message {
+    max-width: 85%;
+  }
+  
+  .chat-header {
+    padding: 12px 16px;
+  }
+  
+  .chat-messages {
+    padding: 16px;
+  }
+  
+  .chat-input {
+    padding: 16px;
+  }
+}
